@@ -11,7 +11,7 @@ In order to simulate fluid-like motion we need to calculate a solution to the Na
 
 **For this chapter, we are only going to focus on developing a _2D Eulerian_ solution for incompressible Newtonian fluids (like water) with constant density and constant viscosity**. Detailing exactly how the Navier-Stokes equations were developed is beyond the scope of this book, we are only going to discuss methods to solve these equations in real-time using the GPU.
 
-> "Eularian" simulations means that the solution domain is a grid of cells and the solution for the equations are calculated for every cell in the grid. This "grid" is very similar to a texture with pixels, which makes it ideal for us to implement an Eulerian solution on the GPU because then our solution domain is simply the values of the texture.
+> "Eulerian" simulations means that the solution domain is a grid of cells and the solution for the equations are calculated for every cell in the grid. This "grid" is very similar to a texture with pixels, which makes it ideal for us to implement an Eulerian solution on the GPU because then our solution domain is simply the values of the texture.
 
 The two governing equations for our model are as follows:
 

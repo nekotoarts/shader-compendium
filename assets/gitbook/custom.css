@@ -1,11 +1,14 @@
+---
+---
+
 @font-face {
     font-family: "Theano Didot";
-    src: url(/assets/fonts/TheanoDidot/TheanoDidot-Regular.ttf);
+    src: url("{{ site.baseurl }}/assets/fonts/TheanoDidot/TheanoDidot-Regular.ttf");
 }
 
 @font-face {
     font-family: "Libre Baskerville";
-    src: url(/assets/fonts/LibreBaskerville/LibreBaskerville-DpdE.ttf);
+    src: url("{{ site.baseurl }}/assets/fonts/LibreBaskerville/LibreBaskerville-DpdE.ttf");
 }
 
 .book-body {
