@@ -7,7 +7,7 @@ email: nekoto.business@gmail.com
 description: A collection of chapters to help you better understand the world of shaders
 
 url: https://nekotoarts.github.io
-baseurl: /shader-compendium/
+baseurl: /shader-compendium
 
 # If baseurl_canonical is set,
 # a <link rel="canonical"> tag will be added to the head of each page,
