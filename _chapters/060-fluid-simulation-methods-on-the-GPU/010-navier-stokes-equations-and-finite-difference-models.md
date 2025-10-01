@@ -47,7 +47,11 @@ Diffusion is the movement of some quantity in the fluid from a region of higher 
 
 Diffusion is primarily controlled by viscosity. Viscosity is a measure of the fluid's resistance to flow. Fluids with higher viscosity such as honey or maple syrup take more effort to get moving.
 
-![](/assets/images/chapter6/pexels-roman-odintsov-6422025.jpg)
+{% include figure.html
+    caption="Honey is a viscous fluid so it requires more effort to move"
+    url="/assets/images/chapter6/pexels-roman-odintsov-6422025.jpg"
+    class="row"
+%}
 
 ## Vector Calculus Operators
 
