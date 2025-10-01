@@ -85,7 +85,7 @@ sidebar_toc:
 # Show a link to edit each page on GitHub
 github_edit:
     enabled: true
-    base_url: https://github.com/nekotoarts/shader-compendium/edit/master/
+    base_url: https://github.com/nekotoarts/shader-compendium/edit/main/
 
 # Custom CSS
 extra_css: assets/extra.css
