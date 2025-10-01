@@ -1,0 +1,47 @@
+.book.font-family-0 {
+	font-family: Georgia, serif;
+}
+
+.book.font-family-1 {
+	font-family: "Libre Baskerville", "Helvetica Neue", Helvetica, Arial,
+		sans-serif;
+}
+
+.glsl-small {
+	width: 30%;
+	aspect-ratio: 1/1;
+	display: block !important;
+	margin: auto !important;
+}
+
+.glsl-medium {
+	width: 50%;
+	aspect-ratio: 1/1;
+	display: block !important;
+	margin: auto !important;
+}
+
+.glsl-large {
+	width: 100%;
+	aspect-ratio: 1/1;
+	display: block !important;
+	margin: auto !important;
+}
+
+.float-img {
+	float: left;
+	margin-right: 3em;
+}
+
+.video {
+	position: relative;
+	padding-bottom: 56.25%;
+	margin-bottom: 1rem;
+	width: 100%;
+}
+
+.video iframe {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+}

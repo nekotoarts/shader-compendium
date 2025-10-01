@@ -1,0 +1,38 @@
+Chapter 1 - The Basics:
+1. What are shaders
+2. GPU Design
+
+Chapter 2 - Realtime Rendering:
+1. The Rendering Equation
+2. Solving the Rendering Equation
+3. Rasterization
+4. Forward vs Deferred Rendering
+
+Chapter 3 - The Math Behind the Brush:
+1. UV Coordinates
+2. Noise Textures
+3. Displacement Maps
+4. Linear Interpolation
+5. Smoothstep
+
+Chapter 4 - Choosing a Look:
+1. Baked Lighting
+2. Vertex Lighting
+3. Pixel Shading
+4. Physically Based Rendering (PBR)
+5. Stylized Rendering
+
+Chapter 5 - Patterns for Parallel Processing:
+1. Intro to Compute Shaders
+2. Atomic Functions
+3. Parallel Prefix Sums (Scans)
+4. Parallel Reduction
+5. Parallel Sorting
+
+Chapter 6 - Fluid Simulation Methods on the GPU:
+1. Navier-Stokes Equations and Finite Difference Models
+2. High-Level Solution Overview
+3. Helmholtz-Hodge Decomposition
+4. Poisson Equations
+5. Jacobi Iterative Method
+5. MacCormack Advection Scheme
