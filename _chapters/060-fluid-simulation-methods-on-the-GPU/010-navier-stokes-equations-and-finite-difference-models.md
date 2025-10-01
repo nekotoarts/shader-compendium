@@ -16,17 +16,13 @@ In order to simulate fluid-like motion we need to calculate a solution to the Na
 The two governing equations for our model are as follows:
 
 $$
-\begin{equation}
-	\tag{1}
-	\nabla \cdot \vec{u} = 0 \; \textrm{(Incompressible Flow)}
-\end{equation}
+\tag{1}
+\nabla \cdot \vec{u} = 0 \; \textrm{(Incompressible Flow)}
 $$
 
 $$
-\begin{equation}
-	\tag{2}
-	\frac{\partial \vec{u}}{\partial t} = \underbrace{-(\vec{u}\cdot\nabla)\vec{u}}_{\text{Advection}} - \underbrace{\frac{1}{\rho}\nabla p}_{\text{Pressure}} + \underbrace{\nu \nabla^2 \vec{u}}_{\text{Diffusion}} + \underbrace{\vec{F}}_{\text{External Forces}}
-\end{equation}
+\tag{2}
+\frac{\partial \vec{u}}{\partial t} = \underbrace{-(\vec{u}\cdot\nabla)\vec{u}}_{\text{Advection}} - \underbrace{\frac{1}{\rho}\nabla p}_{\text{Pressure}} + \underbrace{\nu \nabla^2 \vec{u}}_{\text{Diffusion}} + \underbrace{\vec{F}}_{\text{External Forces}}
 $$
 
 where:
