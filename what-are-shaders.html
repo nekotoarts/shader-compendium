@@ -1477,7 +1477,7 @@
           
             <li class="header ">
               
-              Part 6: Fluid simulation methods on the gpu
+              Part 6: Gpu fluids
               
             </li>
           
@@ -1492,7 +1492,153 @@
               
                 6.
               
-              Navier-Stokes Equations and Finite Difference Models
+              Navier-Stokes Equations and FDM
+            </a>
+
+            
+          </li>
+
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+
+
+
+
+        
+
+          
+          
+            
+          
+
+          
+
+          
+
+          
+
+          
+            <li class="chapter ">
+          
+
+            <a href="/shader-compendium/fluids-high-level-solution.html">
+              
+                7.
+              
+              High-Level Solution Overview
+            </a>
+
+            
+          </li>
+
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+
+
+
+
+        
+
+          
+          
+            
+          
+
+          
+
+          
+
+          
+
+          
+            <li class="chapter ">
+          
+
+            <a href="/shader-compendium/helmholtz-hodge-decomposition.html">
+              
+                8.
+              
+              Helmholtz-Hodge Decomposition
             </a>
 
             
@@ -1812,7 +1958,7 @@
 
 <p>The rendering pipeline is the flow of tasks needed to complete the rendering of the current frame.</p>
 
-<p>For the OpenGL rendering API, these tasks are [<a href="references.html#khronos-fragmentshader-2022">5</a>]:</p>
+<p>For the OpenGL rendering API, these tasks are <a class="citation" href="/shader-compendium/references.html#khronos_group_fragment_2022">(Khronos Group, 2022)</a>:</p>
 
 <ul>
   <li>Vertex Processing</li>
@@ -1830,10 +1976,10 @@
 <p>These shaders as executed once for every vertex in a mesh that needs to be rendered on screen. Their purpose is to transform the vertices through different coordinate spaces until it is finally transformed into clip-space coordinates.</p>
 
 <figure class="figure color-callout-light with-border row">
-  <a href="/shader-compendium/assets/images/chapter1/coordinate_systems.png" target="_blank" title="Vertex Coordinate System Transformations [3] (Click to open figure in a new window.)">
-    <img src="/shader-compendium/assets/images/chapter1/coordinate_systems.png" alt="Vertex Coordinate System Transformations [3]" border="0" />
-  </a>
-  <figcaption class="color-callout-dark">Vertex Coordinate System Transformations [3]</figcaption>
+<a href="/shader-compendium/assets/images/chapter1/coordinate_systems.png" target="_blank" title="Vertex Coordinate System Transformations (Click to open figure in a new window.)">
+    <img src="/shader-compendium/assets/images/chapter1/coordinate_systems.png" alt="" border="0" />
+</a>
+<figcaption class="color-callout-dark">Vertex Coordinate System Transformations <a class="citation" href="/shader-compendium/references.html#de_vries_learnopengl_2014">(De Vries, 2014)</a></figcaption>
 </figure>
 
 <p>The vertex shader can also “post-process” the vertices as they are transformed between the different coordinate spaces, which is what allows us to create interesting visual effects, such as waving grass:</p>
@@ -1850,7 +1996,7 @@
 <p>These two are often confused together even though they mean different things. It also doesn’t help that in other rendering APIs there exist “pixel shaders” that have the same functionality as fragment shaders.</p>
 
 <blockquote>
-  <p>Rasterization is the process of breaking down primitives into a set of fragments based on a sample size. These fragments are processed by a fragment shader and are interpolated to form a pixel on screen. There will always be <strong>at least one fragment that maps to every pixel</strong> on screen, but they are not the same, as <strong>one pixel can be composed of multiple fragments</strong> (which is what happens when using anti-aliasing techniques) [<a href="references.html#khronos-fragment-2022">2</a>]</p>
+  <p>Rasterization is the process of breaking down primitives into a set of fragments based on a sample size. These fragments are processed by a fragment shader and are interpolated to form a pixel on screen. There will always be <strong>at least one fragment that maps to every pixel</strong> on screen, but they are not the same, as <strong>one pixel can be composed of multiple fragments</strong> (which is what happens when using anti-aliasing techniques) <a class="citation" href="/shader-compendium/references.html#khronos_group_fragment_2022">(Khronos Group, 2022)</a></p>
 </blockquote>
 
 <h4 id="uses">Uses</h4>
@@ -1858,10 +2004,10 @@
 <p>Fragment shaders can be applied to each mesh object in your game, allowing you to apply special effects to the colors and lighting of the mesh, or can even be applied to the final image after rendering is completed, called “screen-space post-processing” or more simply just “post-processing” effects.</p>
 
 <figure class="figure color-callout-light with-border row">
-  <a href="/shader-compendium/assets/images/chapter1/digital-frontiers-18.jpg" target="_blank" title="The toon shading in Breath of the Wild is applied as a post-processing effect [1] (Click to open figure in a new window.)">
-    <img src="/shader-compendium/assets/images/chapter1/digital-frontiers-18.jpg" alt="The toon shading in Breath of the Wild is applied as a post-processing effect [1]" border="0" />
-  </a>
-  <figcaption class="color-callout-dark">The toon shading in Breath of the Wild is applied as a post-processing effect [1]</figcaption>
+<a href="/shader-compendium/assets/images/chapter1/digital-frontiers-18.jpg" target="_blank" title="The toon shading in Breath of the Wild is applied as a post-processing effect (Click to open figure in a new window.)">
+    <img src="/shader-compendium/assets/images/chapter1/digital-frontiers-18.jpg" alt="" border="0" />
+</a>
+<figcaption class="color-callout-dark">The toon shading in Breath of the Wild is applied as a post-processing effect <a class="citation" href="/shader-compendium/references.html#digital_frontiers_breath_2023">(Digital Frontiers, 2023)</a></figcaption>
 </figure>
 
 <h3 id="geometry-shaders">Geometry Shaders</h3>
@@ -1877,10 +2023,10 @@
 <p>This allows meshes close to the camera to have very fine details, while those further away are reduced to simpler meshes.</p>
 
 <figure class="figure color-callout-light with-border row">
-  <a href="/shader-compendium/assets/images/chapter1/tessellation-example.webp" target="_blank" title="Wireframe display of tessellation [4] (Click to open figure in a new window.)">
-    <img src="/shader-compendium/assets/images/chapter1/tessellation-example.webp" alt="Wireframe display of tessellation [4]" border="0" />
-  </a>
-  <figcaption class="color-callout-dark">Wireframe display of tessellation [4]</figcaption>
+<a href="/shader-compendium/assets/images/chapter1/tessellation-example.webp" target="_blank" title="Wireframe display of tessellation (Click to open figure in a new window.)">
+    <img src="/shader-compendium/assets/images/chapter1/tessellation-example.webp" alt="" border="0" />
+</a>
+<figcaption class="color-callout-dark">Wireframe display of tessellation <a class="citation" href="/shader-compendium/references.html#nedmakesgames_mastering_2021">(NedMakesGames, 2021)</a></figcaption>
 </figure>
 
 <h3 id="compute-shaders">Compute Shaders</h3>
@@ -2095,12 +2241,12 @@
   },
   "file": {
     "path": "_chapters/010-the-basics/010-what-are-shaders.md",
-    "mtime": "2025-10-02 10:13:14 +0400",
+    "mtime": "2025-10-02 21:33:24 +0400",
     "type": "markdown"
   },
   "gitbook": {
     "version": "",
-    "time": "2025-10-02 10:13:14 +0400"
+    "time": "2025-10-02 21:33:24 +0400"
   },
   "basePath": "/shader-compendium",
   "book": {

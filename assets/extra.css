@@ -45,3 +45,17 @@
 	height: 100%;
 	width: 100%;
 }
+
+ol.bibliography li {
+	list-style: none;
+	padding-left: 20px;
+}
+
+ol.bibliography li::first-letter {
+	margin-left: -40px;
+}
+
+.emoji {
+	width: auto;
+	height: 1em;
+}

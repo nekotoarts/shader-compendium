@@ -46,7 +46,7 @@
 
 
 <meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Navier-Stokes Equations and Finite Difference Models · Shader Compendium</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Navier-Stokes Equations and FDM · Shader Compendium</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="A collection of chapters to help you better understand the world of shaders">
 
 <meta name="generator" content="Jekyll (using jekyll-chapterbook theme)"><meta name="author" content="NekotoArts"><link rel="stylesheet" href="/shader-compendium/assets/gitbook/style.css">
@@ -92,7 +92,7 @@
 		  
 		<link rel="prev" href="/shader-compendium/rasterization.html" />
 		 
-		<link rel="next" href="/shader-compendium/references.html" />
+		<link rel="next" href="/shader-compendium/fluids-high-level-solution.html" />
 		 
 	</head>
 	<body>
@@ -1461,7 +1461,7 @@
           
             <li class="header ">
               
-              Part 6: Fluid simulation methods on the gpu
+              Part 6: Gpu fluids
               
             </li>
           
@@ -1476,7 +1476,7 @@
               
                 6.
               
-              Navier-Stokes Equations and Finite Difference Models
+              Navier-Stokes Equations and FDM
             </a>
 
             
@@ -1548,6 +1548,152 @@
 
 
 
+            
+          
+
+          
+
+          
+
+          
+
+          
+            <li class="chapter ">
+          
+
+            <a href="/shader-compendium/fluids-high-level-solution.html">
+              
+                7.
+              
+              High-Level Solution Overview
+            </a>
+
+            
+          </li>
+
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+
+
+
+
+        
+
+          
+          
+            
+          
+
+          
+
+          
+
+          
+
+          
+            <li class="chapter ">
+          
+
+            <a href="/shader-compendium/helmholtz-hodge-decomposition.html">
+              
+                8.
+              
+              Helmholtz-Hodge Decomposition
+            </a>
+
+            
+          </li>
+
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+
+
+
+
+        
+
+          
+          
             
           
 
@@ -1693,7 +1839,7 @@
 				<div class="book-header" role="navigation">
 					
 					<a
-						href="https://github.com/nekotoarts/shader-compendium/edit/main/_chapters/060-fluid-simulation-methods-on-the-GPU/010-navier-stokes-equations-and-finite-difference-models.md"
+						href="https://github.com/nekotoarts/shader-compendium/edit/main/_chapters/060-GPU-fluids/010-navier-stokes-equations-and-finite-difference-models.md"
 						target="_blank"
 						title="Edit on GitHub"
 						class="github-edit-link"
@@ -1759,7 +1905,7 @@
             
               <li class="breadcrumb-part">
                 
-                Part 6: Fluid simulation methods on the gpu
+                Part 6: Gpu fluids
                 
               </li>
             
@@ -1780,7 +1926,7 @@
     <h1
       id="navier-stokes-finite-difference"
       data-level="1.1"
-      class="heading-chapter-title no_toc">Navier-Stokes Equations and Finite Difference Models</h1>
+      class="heading-chapter-title no_toc">Navier-Stokes Equations and FDM</h1>
   
 
 
@@ -1802,7 +1948,11 @@
     
   
 
-  <h2 id="navier-stokes-equations">Navier-Stokes Equations</h2>
+  <div>
+<canvas class="glsl-canvas glsl-small" data-fragment-url="/shader-compendium/assets/shaders/fluidsinglepass.frag" />
+</div>
+
+<h2 id="navier-stokes-equations">Navier-Stokes Equations</h2>
 
 <p>The Navier-Stokes Equations are a series of partial differential equations that are used to describe the motion of viscous fluids.</p>
 
@@ -1910,7 +2060,7 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
 
 <h3 id="pressure">Pressure</h3>
 
-<p>External forces applied to a fluid do not instantly propagate through the entire fluid, first pressure builds up near the applied area and then that pushes on particles further away. Any pressure in the fluid naturally leads to acceleration (GPU Gems 1).</p>
+<p>According to <a class="citation" href="/shader-compendium/references.html#fernando_gpu_2004">Fernando (2004)</a>, external forces applied to a fluid do not instantly propagate through the entire fluid, first pressure builds up near the applied area and then that pushes on particles further away. Any pressure in the fluid naturally leads to acceleration.</p>
 
 <h3 id="diffusion">Diffusion</h3>
 
@@ -1971,7 +2121,7 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
 
 <p>This table illustrates each operator and its equivalent finite difference approximation, which we will use when developing our shaders. Specifically, the approximations shown here are <em>second-order centered finite difference approximations</em>.</p>
 
-<p>For simplicity, let $\vec{u} = (u,v)$</p>
+<p>For simplicity, let $\vec{u}$ be a 2D vector field with components $u$ and $v$ such that $\vec{u} = (u,v)$, and let $p$ be a 2D scalar field. Then, each of these operators can be approximated as shown below:</p>
 
 <table>
   <thead>
@@ -2020,11 +2170,11 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
     
       
       <a
-        href="/shader-compendium/references.html"
+        href="/shader-compendium/fluids-high-level-solution.html"
         class="chapter-next "
-        aria-label="Next page: References"
+        aria-label="Next page: High-Level Solution Overview"
         data-level="1.1"
-        data-path="/shader-compendium/references.html">
+        data-path="/shader-compendium/fluids-high-level-solution.html">
         <div class="pager-arrow">
           <i class="fa fa-arrow-right"></i>
         </div>
@@ -2033,11 +2183,14 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
             Next:
             
               
+                Gpu fluids
+                 &#8250;
               
+              Chapter 7.
             
           </div>
           <div class="chapter-label">
-            References
+            High-Level Solution Overview
           </div>
         </div>
       </a>
@@ -2207,13 +2360,13 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
     "gitbook": "*"
   },
   "file": {
-    "path": "_chapters/060-fluid-simulation-methods-on-the-GPU/010-navier-stokes-equations-and-finite-difference-models.md",
-    "mtime": "2025-10-02 10:13:14 +0400",
+    "path": "_chapters/060-GPU-fluids/010-navier-stokes-equations-and-finite-difference-models.md",
+    "mtime": "2025-10-02 21:33:24 +0400",
     "type": "markdown"
   },
   "gitbook": {
     "version": "",
-    "time": "2025-10-02 10:13:14 +0400"
+    "time": "2025-10-02 21:33:24 +0400"
   },
   "basePath": "/shader-compendium",
   "book": {
