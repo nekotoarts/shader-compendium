@@ -46,7 +46,7 @@
 
 
 <meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Shader Compendium</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>The GPU Design · Shader Compendium</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="A collection of chapters to help you better understand the world of shaders">
 
 <meta name="generator" content="Jekyll (using jekyll-chapterbook theme)"><meta name="author" content="NekotoArts"><link rel="stylesheet" href="/shader-compendium/assets/gitbook/style.css">
@@ -88,7 +88,11 @@
     }
   };
 </script>
-		<link rel="canonical" href="https://nekotoarts.github.io/shader-compendium/404.html" />
+		<link rel="canonical" href="https://nekotoarts.github.io/shader-compendium/gpu-design.html" />
+		  
+		<link rel="prev" href="/shader-compendium/what-are-shaders.html" />
+		 
+		<link rel="next" href="/shader-compendium/rendering-equation.html" />
 		 
 	</head>
 	<body>
@@ -382,7 +386,19 @@
           
           
             
-          
+
+
+
+
+
+
+
+
+
+
+
+
+
 
           
 
@@ -391,7 +407,9 @@
           
 
           
-            <li class="chapter ">
+
+          
+            <li class="chapter active">
           
 
             <a href="/shader-compendium/gpu-design.html">
@@ -454,6 +472,22 @@
 
           
           
+            
+              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             
           
 
@@ -1580,20 +1614,6 @@
           
           
             
-
-
-
-
-
-
-
-
-
-
-
-
-
-
           
 
           
@@ -1673,7 +1693,7 @@
 				<div class="book-header" role="navigation">
 					
 					<a
-						href="https://github.com/nekotoarts/shader-compendium/edit/main/404.html"
+						href="https://github.com/nekotoarts/shader-compendium/edit/main/_chapters/010-the-basics/020-gpu-design.md"
 						target="_blank"
 						title="Edit on GitHub"
 						class="github-edit-link"
@@ -1699,30 +1719,199 @@
 							 
 
 
+
+
+  <nav aria-label="Breadcrumb" class="breadcrumb markdown-section">
+    <ul>
+      
+        
+          <li>
+              
+              <a href="/shader-compendium/book.html">
+            
+              <img class="book-icon" src="/shader-compendium/assets/gitbook/images/apple-touch-icon-precomposed-152.png">
+              Book
+            
+              </a>
+            
+          </li>
+      
+
+      
+        
+        <li >
+          
+            <a href="/shader-compendium/contents.html">
+          
+            Contents
+          
+            </a>
+          
+        </li>
+      
+
+      
+
+      
+        
+
+          
+            
+              <li class="breadcrumb-part">
+                
+                Part 1: The basics
+                
+              </li>
+            
+          
+
+          
+            <li class="no-arrow">
+              Chapter 2.
+            </li>
+          
+
+        
+      
+    </ul>
+  </nav>
+
+  
+    <h1
+      id="gpu-design"
+      data-level="1.1"
+      class="heading-chapter-title no_toc">The GPU Design</h1>
+  
+
+
 <section class="normal markdown-section">
-  <style type="text/css" media="screen">
-  .container {
-    margin: 10px auto;
-    max-width: 600px;
-    text-align: center;
-  }
-  h1 {
-    margin: 30px 0;
-    font-size: 4em;
-    line-height: 1;
-    letter-spacing: -1px;
-  }
-</style>
 
-<div class="container">
-  <h1>404</h1>
+  
 
-  <p><strong>Page not found :(</strong></p>
-  <p>The requested page could not be found.</p>
-</div>
+  
+    
+    
+
+    
+      <div class="page-toc">
+        <div class="page-toc-heading">
+          In this chapter:
+          <ul><li><a href="#strength-in-numbers">Strength in Numbers</a></li><li><a href="#limitations">Limitations</a><ul><li><a href="#task-independence">Task Independence</a></li><li><a href="#single-set-of-instructions">Single Set of Instructions</a></li></ul></li></ul>
+        </div>
+      </div>
+    
+  
+
+  <p>We like to think of the GPU as “much faster” than the CPU for large scale computational tasks. This is however, not exactly true.</p>
+
+<p>To understand what makes the GPU a better choice for a large scale computational task, as well as what limitations apply to it, we must first understand the way the GPU is designed.</p>
+
+<h2 id="strength-in-numbers">Strength in Numbers</h2>
+
+<p>The primary benefit of GPU hardware is it’s number of cores. While most consumer CPUs have some 10s of cores, most modern GPUs have upwards of 1000 or even 10,000 cores!</p>
+
+<p>However, the GPU relies on using a <strong>single set of instructions for all its cores</strong> and pushing through a very large amount of data for processing simultaneously.</p>
+
+<p>The CPU, while being able to switch between multiple different instruction sets quickly, can only process a much smaller volume of data at once.</p>
+
+<p>This is where the true “speed” of the GPU is demonstrated. Although GPU cores may not be significantly faster than the CPU in computing a single item in a repetitive task list, their ability to process a very large volume of these at once makes them significantly quicker overall.</p>
+
+<h2 id="limitations">Limitations</h2>
+
+<p>Our understanding of how the GPU is able to compute many things very quickly introduces us to certain limitations with what these tasks can be. Particularly, we have two main limitations:</p>
+
+<ul>
+  <li>Task Independence</li>
+  <li>Single Set of Instructions</li>
+</ul>
+
+<h3 id="task-independence">Task Independence</h3>
+
+<p>Perhaps the biggest issue with moving any repetitive task to the GPU is ensuring all tasks are independent of each other.</p>
+
+<p>Since the GPU processes multiple tasks at once, in a random order, none of these tasks can be interdependent, that is to say that they cannot rely on each other’s outputs.</p>
+
+<p>Also, in the case of compute shaders, the GPU can only batch together a certain number of “threads” or “invocations” at once, so even shared memory is extremely limited.</p>
+
+<p>Fragment processing for example, is perfectly suited to the GPU as you don’t need to know any information about any other fragments in order to process the color of a fragment.</p>
+
+<h3 id="single-set-of-instructions">Single Set of Instructions</h3>
+
+<p>The GPU dispatches a certain number of cores at a time (called a warp), each with access to buffers located in GPU memory, but they all receive the same set of instructions.</p>
+
+<p>GPU programs are written such that each core figures out what part of the GPU memory it needs to access in order to complete its task. Effectively, <strong>one</strong> program is written <strong>for all</strong> GPU cores to execute.</p>
+
+<p><img src="/assets/images/chapter1/all_might_fist.jpg" alt="" /></p>
 
 
+  
 </section>
+
+
+  <div class="chapter-pager">
+
+    
+      
+      <a
+        href="/shader-compendium/rendering-equation.html"
+        class="chapter-next "
+        aria-label="Next page: The Rendering Equation"
+        data-level="1.1"
+        data-path="/shader-compendium/rendering-equation.html">
+        <div class="pager-arrow">
+          <i class="fa fa-arrow-right"></i>
+        </div>
+        <div class="pager-labels">
+          <div class="part">
+            Next:
+            
+              
+                Realtime rendering
+                 &#8250;
+              
+              Chapter 3.
+            
+          </div>
+          <div class="chapter-label">
+            The Rendering Equation
+          </div>
+        </div>
+      </a>
+    
+
+    
+      
+      <a
+        href="/shader-compendium/what-are-shaders.html"
+        class="chapter-prev "
+        aria-label="Previous page: What are Shaders?"
+        data-level="1.1"
+        data-path="/shader-compendium/what-are-shaders.html">
+        <div class="pager-arrow">
+          <i class="fa fa-arrow-left"></i>
+        </div>
+        <div class="pager-labels">
+          <div class="part">
+            Previous:
+            
+              
+                The basics
+                &#8250;
+              
+              Chapter 1.
+            
+          </div>
+          <div class="chapter-label">
+            What are Shaders?
+          </div>
+        </div>
+      </a>
+    
+
+    <div style="clear: both;"></div>
+  </div>
+  <!-- .chapter-pager -->
+
  
 						</div>
 						<!-- .page-inner -->
@@ -1854,8 +2043,8 @@
     "gitbook": "*"
   },
   "file": {
-    "path": "404.html",
-    "mtime": "",
+    "path": "_chapters/010-the-basics/020-gpu-design.md",
+    "mtime": "2025-10-02 10:13:14 +0400",
     "type": "markdown"
   },
   "gitbook": {

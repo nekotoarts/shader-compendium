@@ -1,3 +1,12 @@
----
-layout: sitemap
----
+https://nekotoarts.github.io/shader-compendium/book.html
+https://nekotoarts.github.io/shader-compendium/contents.html
+https://nekotoarts.github.io/shader-compendium/what-are-shaders.html
+https://nekotoarts.github.io/shader-compendium/gpu-design.html
+https://nekotoarts.github.io/shader-compendium/rendering-equation.html
+https://nekotoarts.github.io/shader-compendium/solving-rendering-equation.html
+https://nekotoarts.github.io/shader-compendium/rasterization.html
+https://nekotoarts.github.io/shader-compendium/navier-stokes-finite-difference.html
+https://nekotoarts.github.io/shader-compendium/references.html
+https://nekotoarts.github.io/shader-compendium/index.html
+https://nekotoarts.github.io/shader-compendium/outline
+https://nekotoarts.github.io/shader-compendium/privacy

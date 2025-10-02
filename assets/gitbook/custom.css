@@ -1,14 +1,11 @@
----
----
-
 @font-face {
     font-family: "Theano Didot";
-    src: url("{{ site.baseurl }}/assets/fonts/TheanoDidot/TheanoDidot-Regular.ttf");
+    src: url("/shader-compendium/assets/fonts/TheanoDidot/TheanoDidot-Regular.ttf");
 }
 
 @font-face {
     font-family: "Libre Baskerville";
-    src: url("{{ site.baseurl }}/assets/fonts/LibreBaskerville/LibreBaskerville-DpdE.ttf");
+    src: url("/shader-compendium/assets/fonts/LibreBaskerville/LibreBaskerville-DpdE.ttf");
 }
 
 .book-body {
@@ -59,11 +56,11 @@
 }
 
 .page-inner {
-    max-width: {{ site.page_width | default: '800px' }};
+    max-width: 800px;
 }
 
 .back-to-top {
-    right: calc((100% - 300px - min(100% - 300px, {{ site.page_width | default: '800px' }})) / 2 + 25px);
+    right: calc((100% - 300px - min(100% - 300px, 800px)) / 2 + 25px);
 }
 
 /* scrollbar */
