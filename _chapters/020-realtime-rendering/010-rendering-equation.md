@@ -56,7 +56,7 @@ $\Omega$ is the hemisphere centered around our point of interest $\vec{x}$. Spec
 
 If that doesn't make sense, this visual should help:
 
-![](/assets/images/chapter2/rendering-equation.jpg)
+![]({{ site.baseurl }}/assets/images/chapter2/rendering-equation.jpg)
 
 -   The green arrows are different possible values for $\vec{\omega_i}$
 -   The red arrow is $\vec{\omega_o}$
