@@ -8,6 +8,7 @@ https://nekotoarts.github.io/shader-compendium/rasterization.html
 https://nekotoarts.github.io/shader-compendium/navier-stokes-finite-difference.html
 https://nekotoarts.github.io/shader-compendium/fluids-high-level-solution.html
 https://nekotoarts.github.io/shader-compendium/helmholtz-hodge-decomposition.html
+https://nekotoarts.github.io/shader-compendium/stam-advection.html
 https://nekotoarts.github.io/shader-compendium/references.html
 https://nekotoarts.github.io/shader-compendium/index.html
 https://nekotoarts.github.io/shader-compendium/outline

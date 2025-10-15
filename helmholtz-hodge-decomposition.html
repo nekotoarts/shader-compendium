@@ -44,6 +44,8 @@
 	src="https://unpkg.com/glsl-canvas-js/dist/umd/glsl-canvas.min.js"
 ></script>
 
+<!-- Jekyll Chapterbook guy took out syntax highlighting idky -->
+<link rel="stylesheet" href="/shader-compendium/assets/gitbook/rouge/nekoto_theme.css">
 
 <meta charset="UTF-8">
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Helmholtz-Hodge Decomposition · Shader Compendium</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -53,7 +55,7 @@
 <link rel="stylesheet" href="/shader-compendium/assets/gitbook/gitbook-plugin-fontsettings/website.css"><!--
   <link rel="stylesheet" href="/shader-compendium/assets/gitbook/gitbook-plugin-search-pro/search.css">
   <link rel="stylesheet" href="/shader-compendium/assets/gitbook/gitbook-plugin-back-to-top-button/plugin.css">
-  <link rel="stylesheet" href="/shader-compendium/assets/gitbook/rouge/colorful.css">
+  <link rel="stylesheet" href="/shader-compendium/assets/gitbook/rouge/nekoto_theme.css">
   --><link rel="stylesheet" href="/shader-compendium/assets/gitbook/custom.css">
 <link rel="stylesheet" href="/shader-compendium/assets/chapterbook/chapterbook.css">
 
@@ -92,7 +94,7 @@
 		  
 		<link rel="prev" href="/shader-compendium/fluids-high-level-solution.html" />
 		 
-		<link rel="next" href="/shader-compendium/references.html" />
+		<link rel="next" href="/shader-compendium/stam-advection.html" />
 		 
 	</head>
 	<body>
@@ -183,6 +185,8 @@
             </a>
 
             
+              
+            
           </li>
 
           
@@ -253,6 +257,8 @@
               Table of Contents
             </a>
 
+            
+              
             
           </li>
 
@@ -333,6 +339,8 @@
             </a>
 
             
+              
+            
           </li>
 
           
@@ -405,6 +413,8 @@
               The GPU Design
             </a>
 
+            
+              
             
           </li>
 
@@ -485,6 +495,8 @@
             </a>
 
             
+              
+            
           </li>
 
           
@@ -558,6 +570,8 @@
             </a>
 
             
+              
+            
           </li>
 
           
@@ -630,6 +644,8 @@
               Rasterization
             </a>
 
+            
+              
             
           </li>
 
@@ -1466,6 +1482,8 @@
             </a>
 
             
+              
+            
           </li>
 
           
@@ -1538,6 +1556,8 @@
               High-Level Solution Overview
             </a>
 
+            
+              
             
           </li>
 
@@ -1626,6 +1646,11 @@
             </a>
 
             
+              
+                <ul><li><a href="#helmholtz-hodge-decomposition-theorem">Helmholtz-Hodge Decomposition Theorem</a></li><li><a href="#application-to-navier-stokes">Application to Navier-Stokes</a></li></ul>
+
+              
+            
           </li>
 
           
@@ -1707,11 +1732,88 @@
             <li class="chapter ">
           
 
+            <a href="/shader-compendium/stam-advection.html">
+              
+                9.
+              
+              Jos Stam Advection Scheme
+            </a>
+
+            
+              
+            
+          </li>
+
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+
+
+
+
+        
+
+          
+          
+            
+          
+
+          
+
+          
+
+          
+
+          
+            <li class="chapter ">
+          
+
             <a href="/shader-compendium/references.html">
               
               References
             </a>
 
+            
+              
             
           </li>
 
@@ -1818,14 +1920,14 @@
             
             
             <li class="chapter ">
-              <a href="/shader-compendium/outline.html" class="">Draft outline</a>
+              <a href="/shader-compendium/outline.html" class="">Book Outline</a>
             </li>
           
             
             
             
             <li class="chapter ">
-              <a href="https://github.com/nekotoarts/shader-compendium/fork" class="">Fork at GitHub</a>
+              <a href="https://github.com/nekotoarts/shader-compendium/" class="">Star on GitHub</a>
             </li>
           
         
@@ -1857,7 +1959,7 @@
 
 				<div class="body-inner">
 					<!-- introduce per-page mermaid support -->
-					
+					<!--  -->
 					<div class="page-wrapper" tabindex="-1" role="main">
 						<div
 							class="page-inner "
@@ -2226,6 +2328,25 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
   <li>Subtract the gradient of the pressure field from the non-zero divergence velocity field</li>
 </ol>
 
+<p>Here is a simplified flowchart overview of these steps:</p>
+
+<script src="assets/mermaid-js/mermaid-v11.20.js"></script>
+<div class="mermaid">
+flowchart LR
+	id1["Calculate $$\vec{w}$$"]
+	id2["Calculate $$p$$"]
+	id3["Calculate $$\nabla p$$"]
+	id4["Set $$\vec{u} = \vec{w} - \nabla p$$"]
+
+	id1 e1@==&gt; id2
+	id2 e2@==&gt; id3
+	id3 e3@==&gt; id4
+
+	e1@{ animate: true, animation: fast }
+	e2@{ animate: true, animation: fast }
+	e3@{ animate: true, animation: fast }
+</div>
+
 
   
 </section>
@@ -2236,11 +2357,11 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
     
       
       <a
-        href="/shader-compendium/references.html"
+        href="/shader-compendium/stam-advection.html"
         class="chapter-next "
-        aria-label="Next page: References"
+        aria-label="Next page: Jos Stam Advection Scheme"
         data-level="1.1"
-        data-path="/shader-compendium/references.html">
+        data-path="/shader-compendium/stam-advection.html">
         <div class="pager-arrow">
           <i class="fa fa-arrow-right"></i>
         </div>
@@ -2249,11 +2370,14 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
             Next:
             
               
+                Gpu fluids
+                 &#8250;
               
+              Chapter 9.
             
           </div>
           <div class="chapter-label">
-            References
+            Jos Stam Advection Scheme
           </div>
         </div>
       </a>
@@ -2424,12 +2548,12 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
   },
   "file": {
     "path": "_chapters/060-GPU-fluids/030-helmholtz-hodge-decomposition.md",
-    "mtime": "2025-10-02 21:33:24 +0400",
+    "mtime": "2025-10-15 23:22:09 +0400",
     "type": "markdown"
   },
   "gitbook": {
     "version": "",
-    "time": "2025-10-02 21:33:24 +0400"
+    "time": "2025-10-15 23:22:09 +0400"
   },
   "basePath": "/shader-compendium",
   "book": {
@@ -2439,5 +2563,7 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
 );
 			});
 		</script>
+
+		<script src="/shader-compendium/assets/js-custom/glsl-extra-keywords.js"></script>
 	</body>
 </html>

@@ -33,6 +33,7 @@ Chapter 6 - Fluid Simulation Methods on the GPU:
 1. Navier-Stokes Equations and Finite Difference Models
 2. High-Level Solution Overview
 3. Helmholtz-Hodge Decomposition
-4. Poisson Equations
-5. Jacobi Iterative Method
-5. MacCormack Advection Scheme
+4. Jos Stam Advection Scheme
+5. Poisson Equations
+6. Jacobi Iterative Method
+7. MacCormack Advection Scheme
