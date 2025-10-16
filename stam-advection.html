@@ -1722,7 +1722,7 @@
 
             
               
-                <ul><li><a href="#classical-advection-scheme">Classical Advection Scheme</a><ul><li><a href="#issues-with-classical-advection-scheme">Issues with Classical Advection Scheme</a></li></ul></li><li><a href="#stams-advection-scheme">Stam’s Advection Scheme</a></li></ul>
+                <ul><li><a href="#gpu-data-structures-and-operations">GPU Data Structures and Operations</a><ul><li><a href="#eulerian-data-on-the-gpu">Eulerian Data on the GPU</a></li><li><a href="#slab-operations">Slab Operations</a></li></ul></li><li><a href="#classical-advection-scheme">Classical Advection Scheme</a><ul><li><a href="#issues-with-classical-advection-scheme">Issues with Classical Advection Scheme</a></li></ul></li><li><a href="#stams-advection-scheme">Stam’s Advection Scheme</a><ul><li><a href="#issues-with-stams-advection-scheme">Issues with Stam’s Advection Scheme</a></li></ul></li><li><a href="#a-note-on-alternatives">A Note on Alternatives</a></li></ul>
 
               
             
@@ -2044,23 +2044,55 @@
       <div class="page-toc">
         <div class="page-toc-heading">
           In this chapter:
-          <ul><li><a href="#classical-advection-scheme">Classical Advection Scheme</a><ul><li><a href="#issues-with-classical-advection-scheme">Issues with Classical Advection Scheme</a></li></ul></li><li><a href="#stams-advection-scheme">Stam’s Advection Scheme</a></li></ul>
+          <ul><li><a href="#gpu-data-structures-and-operations">GPU Data Structures and Operations</a><ul><li><a href="#eulerian-data-on-the-gpu">Eulerian Data on the GPU</a></li><li><a href="#slab-operations">Slab Operations</a></li></ul></li><li><a href="#classical-advection-scheme">Classical Advection Scheme</a><ul><li><a href="#issues-with-classical-advection-scheme">Issues with Classical Advection Scheme</a></li></ul></li><li><a href="#stams-advection-scheme">Stam’s Advection Scheme</a><ul><li><a href="#issues-with-stams-advection-scheme">Issues with Stam’s Advection Scheme</a></li></ul></li><li><a href="#a-note-on-alternatives">A Note on Alternatives</a></li></ul>
         </div>
       </div>
     
   
 
-  <p>We can now finally start with writing the first-step of our fluid simulator, the advection scheme.</p>
+  <p>We can now finally start with writing the first-step of our fluid simulator, the advection scheme. In order to implement this on the GPU as shaders, we need to review some information about GPU architecture so we can come up with an appropriate way to store and operate on our data.</p>
+
+<h2 id="gpu-data-structures-and-operations">GPU Data Structures and Operations</h2>
+
+<p>Whether you choose to implement the fluid simulator using compute shaders or fragment shaders is entirely up to you.</p>
+
+<h3 id="eulerian-data-on-the-gpu">Eulerian Data on the GPU</h3>
+
+<p>Since we are doing an Eulerian simulation (which just means that it is a grid-based simulation), it makes sense to store our data in textures. For a fragment program, the position of the fragment would represent the position in the grid you are working on, and for a compute program, the <span class="jekyll-glossary">  invocation  <span class="jekyll-glossary-tooltip">    <span class="jekyll-glossary-tooltip-hidden">(</span>(A.K.A. thread or GPU work unit) The smallest unit of GPU execution within a kernel function. For GPGPU programming, invocations are organized into 3D grids and are dispatched in batches called “workgroups”.<br /><a class="jekyll-glossary-source-link" href="https://docs.modular.com/glossary/gpu/thread/" target="_blank"></a><span class="jekyll-glossary-tooltip-hidden">)</span>  </span></span> index would tell you what position in the grid you are working on.</p>
+
+<p>Alternatively, for a compute program you could also store the data in a 1D buffer and calculate the buffer index from the grid position. The benefit of doing this is the freedom to store more data. In a texture you only get up to 4 channels to store data to for each cell, however, a compute buffer can store contains structs of larger sizes making it easier to store data.</p>
+
+<script src="assets/mermaid-js/mermaid-v11.20.js"></script>
+<div class="mermaid">
+block
+	columns 5
+	0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24
+</div>
+
+<p>You can get around the problem of texture storage space being limited to 4-channels by simply adding more textures to your shader of course. In this book we assume the use of textures as they make our explanations easier to understand.</p>
+
+<h3 id="slab-operations">Slab Operations</h3>
+
+<p>Every step that we are going to carry out in our fluid simulation (advection, diffusion, external forces, projection, etc.) is going to be carried out as a slab operation (often abbreviated as slabop).</p>
+
+<p>A slab operation involves reading all of the old simulation data in parallel, computing the new values, writing the new values to a <strong>separate</strong> temporary texture, and finally copying the data from this new texture into the original texture (which is called a texture update). This can be summarized as:</p>
+
+<ol>
+  <li>Read old values</li>
+  <li>Calculate new values</li>
+  <li>Write new values to temporary storage</li>
+  <li>After all new values are written to temporary storage, copy this data to original buffer</li>
+</ol>
 
 <h2 id="classical-advection-scheme">Classical Advection Scheme</h2>
 
 <p>As we discussed earlier, advection is the process by which some fluid property is moved by the velocity of the fluid. Even the velocities themselves are moved each simulation step by their own velocity.</p>
 
-<p>Describing the classical advection scheme using this information because very simple. Suppose we want to advect the velocities of the fluid (that means we want to move the position of the velocities, by the velocity themselves):</p>
+<p>Describing the classical advection scheme using this information because very simple. Suppose we want to advect the velocities of the fluid (that means we want to move the position of the velocities, by the velocity itself):</p>
 
 <script src="assets/mermaid-js/mermaid-v11.20.js"></script>
 <div class="mermaid">
-flowchart LR
+flowchart TD
 	id1["Look up velocity $\vec{v}$ at current position $\vec{p}$"]
 	id2["Add velocity multiplied by time-step to current position: $$\vec{p}_{\text{new}} = \vec{p} + \vec{v} \cdot \Delta t$$"]
 	id3["Look up the velocity at $\vec{p}_{\text{new}}$"]
@@ -2092,12 +2124,12 @@ flowchart LR
   <li>Read the velocity $\vec{v}$ at the current position $\vec{p}$</li>
   <li>Look “backwards” using this velocity: $\vec{p}_{\text{new}} = \vec{p} - \vec{v} \cdot \Delta t$</li>
   <li>Look up the velocity at $\vec{p}_{\text{new}}$</li>
-  <li>Copy that velocity to the current position</li>
+  <li>Copy that velocity and use it as the new velocity for that point</li>
 </ol>
 
 <p>It is very likely that $\vec{p}_{\text{new}}$ will not be located exactly on a pixel center, so instead, look up the 4 nearest pixels and perform a <a href="https://en.wikipedia.org/wiki/Bilinear_interpolation">bilinear interpolation</a>* to calculate the new velocity value.</p>
 
-<p>If that’s difficult to visualize, I have made an animation to hopefully illustrate this advection scheme better:</p>
+<p>If that’s difficult to visualize, I have made an animation to hopefully illustrate this advection scheme better. You can also see how part of the slab operation is performed, after this the “new velocity texture” data is copied to the “old velocity texture” so the calculation can be re-run with the new data on the next time step:</p>
 
 <video loop="" style="width: 100%; height: auto;" autoplay="" controls="">
   <source src="assets/videos/chapter060/FluidAdvection.mp4" type="video/mp4" />
@@ -2115,6 +2147,99 @@ flowchart LR
 <span class="n">texture</span><span class="p">(</span><span class="n">VELOCITY_TEXTURE</span><span class="p">,</span> <span class="n">uv</span><span class="p">);</span>
 <span class="n">texture</span><span class="p">(</span><span class="n">VELOCITY_TEXTURE</span><span class="p">,</span> <span class="n">texel</span> <span class="o">/</span> <span class="p">(</span><span class="n">resolution</span> <span class="o">-</span> <span class="mi">1</span><span class="p">.</span><span class="mi">0</span><span class="p">));</span>
 </code></pre></div></div>
+
+<blockquote>
+  <p>This type of advection scheme is called a semi-Lagrangian advection scheme. Lagrangian simulations are fluid simulations where the fluid is composed of simulated particles. On the other hand, what we are doing is called an Eulerian simulation, where our simulation data exists on a fixed grid. So the term semi-Lagrangian means that we pretend / imagine that there are particles in our fluid and evaluate their behavior, but we never actually store these particles as data anywhere. We are simply using the “concept” of particles.</p>
+</blockquote>
+
+<p>Stam’s advection scheme is a better approach for two reasons:</p>
+
+<ol>
+  <li>It is very well suited for implementation on the GPU</li>
+  <li>It is unconditionally stable, which means that you can use it even when the time-step is large.</li>
+</ol>
+
+<h3 id="issues-with-stams-advection-scheme">Issues with Stam’s Advection Scheme</h3>
+
+<p>Consider running Stam’s advection scheme on the following case. Here is an example current velocity texture:</p>
+
+<script src="assets/mermaid-js/mermaid-v11.20.js"></script>
+<div class="mermaid">
+block
+	columns 5
+	0["0"] 1["0"] 2["0"] 3["0"] 4["0"]
+	5["0"] 6["0"] 7["0"] 8["0"] 9["0"]
+	10["0"] 11["0"] 12["$\rightarrow$"] 13["0"] 14["0"]
+	15["0"] 16["0"] 17["0"] 18["0"] 19["0"]
+	20["0"] 21["0"] 22["0"] 23["0"] 24["0"]
+</div>
+
+<p>Only the center grid position has a velocity pointing to the right, the rest of the grid positions don’t have any velocity (represented in the diagram as “0”).</p>
+
+<p>For all the positions with zero velocity, their lookup position is identical to their current position, which means their output velocity will also still be zero.</p>
+
+<p>However, for the center grid position, it inverts it’s velocity, looks up the values to the left (which are all zero), and copies that velocity, resulting in the following output:</p>
+
+<script src="assets/mermaid-js/mermaid-v11.20.js"></script>
+<div class="mermaid">
+block
+	columns 5
+	0["0"] 1["0"] 2["0"] 3["0"] 4["0"]
+	5["0"] 6["0"] 7["0"] 8["0"] 9["0"]
+	10["0"] 11["0"] 12["0"] 13["0"] 14["0"]
+	15["0"] 16["0"] 17["0"] 18["0"] 19["0"]
+	20["0"] 21["0"] 22["0"] 23["0"] 24["0"]
+</div>
+
+<p>This is obviously incorrect, as advection tells us that the velocity must move by the velocity itself. So the correct result should be something like this:</p>
+
+<script src="assets/mermaid-js/mermaid-v11.20.js"></script>
+<div class="mermaid">
+block
+	columns 5
+	0["0"] 1["0"] 2["0"] 3["0"] 4["0"]
+	5["0"] 6["0"] 7["0"] 8["0"] 9["0"]
+	10["0"] 11["0"] 12["0"] 13["$\rightarrow$"] 14["0"]
+	15["0"] 16["0"] 17["0"] 18["0"] 19["0"]
+	20["0"] 21["0"] 22["0"] 23["0"] 24["0"]
+</div>
+
+<p>So what’s going on here? Why does Stam’s advection scheme work for simple fluid simulations if it gives us an obviously incorrect answer here? Take a moment to think about it.</p>
+
+<p>The devil lies in the example problem itself. The example I have given you here is not a valid simulation state in the first place <img src="/shader-compendium/assets/emoji/dogekek.png" class="emoji" />. Recall our incompressibility condition we discussed with the Navier-Stokes equations:</p>
+
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi mathvariant="normal">∇</mi><mo>⋅</mo><mover accent="true"><mi>u</mi><mo>⃗</mo></mover><mo>=</mo><mn>0</mn><mtext>  </mtext><mtext>(Incompressible Flow)</mtext></mrow><annotation encoding="application/x-tex">\nabla \cdot \vec{u} = 0 \; \textrm{(Incompressible Flow)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">∇</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.714em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.714em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal">u</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2077em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg xmlns="http://www.w3.org/2000/svg" width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord text"><span class="mord textrm">(Incompressible Flow)</span></span></span></span></span></span>
+
+<p>It states that the divergence of the velocity field must always be zero. Divergence is a measure of how much the vectors of a vector field are “flowing out” of a certain point. <a href="/shader-compendium/fluids-high-level-solution.html#incompressibility-condition-reviewed">Look back at this chapter for a review</a>. A non-zero divergence means that matter is either being created or destroyed, which violates the law of conservation of mass.</p>
+
+<p>If you look at the example above, it is not possible for the center grid cell to have a non-zero velocity value when all of it’s neighbors are zero. That means that there is fluid flowing out of that cell without any fluid entering that cell, which means matter is being mysteriously created there. A valid example might look something like this instead:</p>
+
+<script src="assets/mermaid-js/mermaid-v11.20.js"></script>
+<div class="mermaid">
+block
+	columns 5
+	0["0"] 1["0"] 2["0"] 3["0"] 4["0"]
+	5["0"] 6["$\swarrow$"] 7["$\leftarrow$"] 8["$\nwarrow$"] 9["0"]
+	10["0"] 11["$\searrow$"] 12["$\rightarrow$"] 13["$\nearrow$"] 14["0"]
+	15["0"] 16["0"] 17["0"] 18["0"] 19["0"]
+	20["0"] 21["0"] 22["0"] 23["0"] 24["0"]
+</div>
+
+<p>Notice how the velocities flow into each other so that the velocity field has no divergence.</p>
+
+<p>When we get to the later parts of our simulator where we employ the Helmholtz-Hodge decomposition to obtain a divergence-free velocity field, Stam’s advection scheme works much better and proves to be a simple yet efficient advection model.</p>
+
+<h2 id="a-note-on-alternatives">A Note on Alternatives</h2>
+
+<p>Keep in mind that other advection schemes also exist. Many are a lot more accurate than Stam’s advection scheme, however, Stam’s is one of the simplest to understand and easiest to implement.</p>
+
+<p>After we have completed building a basic fluid simulator we will explore a different, more accurate advection scheme that you can choose to replace Stam’s advection scheme with.</p>
 
 
   
@@ -2314,12 +2439,12 @@ flowchart LR
   },
   "file": {
     "path": "_chapters/060-GPU-fluids/040-jos-stam-advection-scheme.md",
-    "mtime": "2025-10-15 23:22:09 +0400",
+    "mtime": "2025-10-16 13:19:51 +0400",
     "type": "markdown"
   },
   "gitbook": {
     "version": "",
-    "time": "2025-10-15 23:22:09 +0400"
+    "time": "2025-10-16 13:19:51 +0400"
   },
   "basePath": "/shader-compendium",
   "book": {
