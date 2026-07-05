@@ -1,0 +1,16 @@
+- On the Nature of Pixels and Other Lies
+- An Extremely Serious Book About Shaders
+- Fifty Shades of Ray
+- Render Me This
+- A Slightly Unhinged Guide to GPUs
+- This Is Why Your GPU Is Crying
+- One Does Not Simply Normalize Vectors
+- Totally Accurate Rendering
+- The Graphics Pipeline Survival Guide
+- Light, Lies, and Lerps
+- The Science of Making Stuff Look Right-ish
+- Everything Is Fine (Except the Normals)
+- The Good, the Bad, and the Aliased
+- The Normal, the Rough, and the Metallic
+- Just One More Shader
+- The 16ms Dream

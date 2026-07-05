@@ -118,7 +118,7 @@ void main()
 	vec4 s = T(p - vec2(0,1));
 	vec4 w = T(p - vec2(1,0));
 
-	vec4 laplacian = (n + e + s + w - 4.*c);
+	vec4 laplacian = (n + e + s + w - 4.0*c);
 
 	vec4 dx = (e - w)/2.;
     vec4 dy = (n - s)/2.;
@@ -129,13 +129,13 @@ void main()
     // mass conservation, Euler method step
     c.z -= dt*(dx.z * c.x + dy.z * c.y + div * c.z);
     
-    // semi-Langrangian advection
+    // semi-Langrangian advection (Stam's advection scheme)
     c.xyw = T(p - dt*c.xy).xyw;
     
-    // viscosity/diffusion
+    // viscous diffusion
     c.xyw += dt * vec3(nu,nu,kappa) * laplacian.xyw;
     
-    // nullify divergence with pressure field gradient
+    // nullify divergence with pressure field gradient (Helmholtz-Hodge Decomposition)
     c.xy -= K * vec2(dx.z,dy.z);
     
     // external source

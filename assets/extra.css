@@ -61,7 +61,8 @@ ol.bibliography li::first-letter {
 
 .emoji {
 	width: auto;
-	height: 1.5em;
+	height: 2em;
+  vertical-align: middle;
 }
 
 .mermaid {
@@ -145,8 +146,18 @@ ol.bibliography li::first-letter {
 .markdown-section code {
   font-family: "JetBrains Mono";
 	background-color: #fdf0ed;
+  tab-size: 4;
 }
 
 .markdown-section {
   overflow: visible;
+}
+
+.book-header {
+  height: auto;
+}
+
+.book-header h1 {
+  /* Title not fitting here properly so I got rid of it */
+  font-size: 0px;
 }

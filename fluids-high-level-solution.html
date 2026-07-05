@@ -48,10 +48,10 @@
 <link rel="stylesheet" href="/shader-compendium/assets/gitbook/rouge/nekoto_theme.css">
 
 <meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>High-Level Solution Overview · Shader Compendium</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>High-Level Solution Overview · Computational Graphics and Scientific Simulation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="A collection of chapters to help you better understand the world of shaders">
 
-<meta name="generator" content="Jekyll (using jekyll-chapterbook theme)"><meta name="author" content="NekotoArts"><link rel="stylesheet" href="/shader-compendium/assets/gitbook/style.css">
+<meta name="generator" content="Jekyll (using jekyll-chapterbook theme)"><meta name="author" content="Gregory Dsouza"><link rel="stylesheet" href="/shader-compendium/assets/gitbook/style.css">
 <link rel="stylesheet" href="/shader-compendium/assets/gitbook/gitbook-plugin-fontsettings/website.css"><!--
   <link rel="stylesheet" href="/shader-compendium/assets/gitbook/gitbook-plugin-search-pro/search.css">
   <link rel="stylesheet" href="/shader-compendium/assets/gitbook/gitbook-plugin-back-to-top-button/plugin.css">
@@ -110,7 +110,7 @@
             
             
             <li class="chapter ">
-              <a href="/shader-compendium/index.html" class="">The Shader Compendium</a>
+              <a href="/shader-compendium/index.html" class="">Computational Graphics and Scientific Simulation</a>
             </li>
           
           <li class="divider"></li>
@@ -1807,6 +1807,81 @@
             <li class="chapter ">
           
 
+            <a href="/shader-compendium/fluid-diffusion.html">
+              
+                10.
+              
+              Viscous Diffusion (and Poisson Equations)
+            </a>
+
+            
+              
+            
+          </li>
+
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+
+
+
+
+        
+
+          
+          
+            
+          
+
+          
+
+          
+
+          
+
+          
+            <li class="chapter ">
+          
+
             <a href="/shader-compendium/references.html">
               
               References
@@ -1951,7 +2026,7 @@
 					
 					<h1>
 						<a href="/shader-compendium/index.html"
-							>Shader Compendium</a
+							>Computational Graphics and Scientific Simulation</a
 						>
 					</h1>
 				</div>
@@ -2082,12 +2157,57 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
 
 <h2 id="solution-overview">Solution Overview</h2>
 
-<p>Our goal then for each step of our fluid simulation can be broken down into the following high-level steps:</p>
+<p>Our goal then for each step of our fluid simulation can be broken down into the following extremely high-level steps:</p>
 
 <ol>
   <li>Calculate a new velocity field that has a non-zero divergence</li>
   <li>Correct the vectors in the new velocity field to create a divergence-free velocity field somehow… (spoiler: it’s the next chapter)</li>
 </ol>
+
+<p>Going back to what we learned in the last chapter, step 1 involves changing the velocity field, and as we’ve learnt, changing a velocity means applying an acceleration. So step 1 involves the successive application of all acceleration terms to the velocity field, neglecting, at this stage, any considerations regarding the divergence of the resulting flow.</p>
+
+<p>This can be further decomposed into 3 shader stages:</p>
+
+<ol>
+  <li>Advection</li>
+  <li>Viscous Diffusion</li>
+  <li>Adding External Forces</li>
+</ol>
+
+<p>Now we move on to step 2, which actually has a technical name known as “projection”. As we will see later, the projection step really comes down to doing three things:</p>
+
+<ol>
+  <li>Calculating the pressure field (by solving a Poisson equation)</li>
+  <li>Calculating the gradient of this pressure field</li>
+  <li>Subtracting the gradient of the pressure field from our intermediate velocity field</li>
+</ol>
+
+<p>Which makes our final simulation flowchart look like this:</p>
+
+<script src="assets/mermaid-js/mermaid-v11.20.js"></script>
+<div class="mermaid">
+flowchart TD
+	u[Old Velocity Field]
+	A[Advection] e1@==&gt; sum((+))
+	D[Viscous Diffusion] e2@==&gt; sum
+	F[External Forces] e3@==&gt; sum
+
+	u e5@==&gt; A
+	u e6@==&gt; D
+	u e7@==&gt; F
+
+	sum e4@==&gt; u_prime["Intermediate Velocity Field (Has Divergence)"]
+
+	P[Calculate Pressure Field]
+	GP[Calculate Gradient of Pressure Field]
+	HH[Subtract Gradient of Pressure Field from Intermediate Velocity Field]
+	v["New Velocity Field (Divergence-free)"]
+
+	u_prime e8@==&gt; P
+	P e9@==&gt; GP
+	GP e10@==&gt; HH
+	HH e11@==&gt; v
+</div>
 
 
   
@@ -2182,7 +2302,7 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
 					<div class="copyright">
 						  
 						<a href="/shader-compendium/book.html">
-							 &copy;   2024- 2025 NekotoArts 
+							 &copy;   2024- 2026 Gregory Dsouza 
 						</a>
 						
 					</div>
@@ -2284,18 +2404,18 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
       "readme": "README.md",
     },
     "variables": {},
-    "title": "Shader Compendium",
+    "title": "Computational Graphics and Scientific Simulation",
     "language": "en",
     "gitbook": "*"
   },
   "file": {
     "path": "_chapters/060-GPU-fluids/020-high-level-solution-overview.md",
-    "mtime": "2025-10-16 13:19:51 +0400",
+    "mtime": "2026-07-05 23:50:20 +0400",
     "type": "markdown"
   },
   "gitbook": {
     "version": "",
-    "time": "2025-10-16 13:19:51 +0400"
+    "time": "2026-07-05 23:50:20 +0400"
   },
   "basePath": "/shader-compendium",
   "book": {

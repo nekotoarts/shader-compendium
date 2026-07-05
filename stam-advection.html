@@ -48,10 +48,10 @@
 <link rel="stylesheet" href="/shader-compendium/assets/gitbook/rouge/nekoto_theme.css">
 
 <meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Jos Stam Advection Scheme · Shader Compendium</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Jos Stam Advection Scheme · Computational Graphics and Scientific Simulation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="A collection of chapters to help you better understand the world of shaders">
 
-<meta name="generator" content="Jekyll (using jekyll-chapterbook theme)"><meta name="author" content="NekotoArts"><link rel="stylesheet" href="/shader-compendium/assets/gitbook/style.css">
+<meta name="generator" content="Jekyll (using jekyll-chapterbook theme)"><meta name="author" content="Gregory Dsouza"><link rel="stylesheet" href="/shader-compendium/assets/gitbook/style.css">
 <link rel="stylesheet" href="/shader-compendium/assets/gitbook/gitbook-plugin-fontsettings/website.css"><!--
   <link rel="stylesheet" href="/shader-compendium/assets/gitbook/gitbook-plugin-search-pro/search.css">
   <link rel="stylesheet" href="/shader-compendium/assets/gitbook/gitbook-plugin-back-to-top-button/plugin.css">
@@ -94,7 +94,7 @@
 		  
 		<link rel="prev" href="/shader-compendium/helmholtz-hodge-decomposition.html" />
 		 
-		<link rel="next" href="/shader-compendium/references.html" />
+		<link rel="next" href="/shader-compendium/fluid-diffusion.html" />
 		 
 	</head>
 	<body>
@@ -110,7 +110,7 @@
             
             
             <li class="chapter ">
-              <a href="/shader-compendium/index.html" class="">The Shader Compendium</a>
+              <a href="/shader-compendium/index.html" class="">Computational Graphics and Scientific Simulation</a>
             </li>
           
           <li class="divider"></li>
@@ -1722,7 +1722,7 @@
 
             
               
-                <ul><li><a href="#gpu-data-structures-and-operations">GPU Data Structures and Operations</a><ul><li><a href="#eulerian-data-on-the-gpu">Eulerian Data on the GPU</a></li><li><a href="#slab-operations">Slab Operations</a></li></ul></li><li><a href="#classical-advection-scheme">Classical Advection Scheme</a><ul><li><a href="#issues-with-classical-advection-scheme">Issues with Classical Advection Scheme</a></li></ul></li><li><a href="#stams-advection-scheme">Stam’s Advection Scheme</a><ul><li><a href="#issues-with-stams-advection-scheme">Issues with Stam’s Advection Scheme</a></li></ul></li><li><a href="#a-note-on-alternatives">A Note on Alternatives</a></li></ul>
+                <ul><li><a href="#gpu-data-structures-and-operations">GPU Data Structures and Operations</a><ul><li><a href="#eulerian-data-on-the-gpu">Eulerian Data on the GPU</a></li><li><a href="#slab-operations">Slab Operations</a></li></ul></li><li><a href="#classical-advection-scheme">Classical Advection Scheme</a><ul><li><a href="#issues-with-classical-advection-scheme">Issues with Classical Advection Scheme</a></li></ul></li><li><a href="#stams-advection-scheme">Stam’s Advection Scheme</a><ul><li><a href="#issues-with-stams-advection-scheme">Issues with Stam’s Advection Scheme</a></li><li><a href="#compute-shader-implementation">Compute Shader Implementation</a></li></ul></li><li><a href="#a-note-on-alternatives">A Note on Alternatives</a></li></ul>
 
               
             
@@ -1794,6 +1794,81 @@
 
 
 
+            
+          
+
+          
+
+          
+
+          
+
+          
+            <li class="chapter ">
+          
+
+            <a href="/shader-compendium/fluid-diffusion.html">
+              
+                10.
+              
+              Viscous Diffusion (and Poisson Equations)
+            </a>
+
+            
+              
+            
+          </li>
+
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+
+
+
+
+        
+
+          
+          
             
           
 
@@ -1951,7 +2026,7 @@
 					
 					<h1>
 						<a href="/shader-compendium/index.html"
-							>Shader Compendium</a
+							>Computational Graphics and Scientific Simulation</a
 						>
 					</h1>
 				</div>
@@ -2044,7 +2119,7 @@
       <div class="page-toc">
         <div class="page-toc-heading">
           In this chapter:
-          <ul><li><a href="#gpu-data-structures-and-operations">GPU Data Structures and Operations</a><ul><li><a href="#eulerian-data-on-the-gpu">Eulerian Data on the GPU</a></li><li><a href="#slab-operations">Slab Operations</a></li></ul></li><li><a href="#classical-advection-scheme">Classical Advection Scheme</a><ul><li><a href="#issues-with-classical-advection-scheme">Issues with Classical Advection Scheme</a></li></ul></li><li><a href="#stams-advection-scheme">Stam’s Advection Scheme</a><ul><li><a href="#issues-with-stams-advection-scheme">Issues with Stam’s Advection Scheme</a></li></ul></li><li><a href="#a-note-on-alternatives">A Note on Alternatives</a></li></ul>
+          <ul><li><a href="#gpu-data-structures-and-operations">GPU Data Structures and Operations</a><ul><li><a href="#eulerian-data-on-the-gpu">Eulerian Data on the GPU</a></li><li><a href="#slab-operations">Slab Operations</a></li></ul></li><li><a href="#classical-advection-scheme">Classical Advection Scheme</a><ul><li><a href="#issues-with-classical-advection-scheme">Issues with Classical Advection Scheme</a></li></ul></li><li><a href="#stams-advection-scheme">Stam’s Advection Scheme</a><ul><li><a href="#issues-with-stams-advection-scheme">Issues with Stam’s Advection Scheme</a></li><li><a href="#compute-shader-implementation">Compute Shader Implementation</a></li></ul></li><li><a href="#a-note-on-alternatives">A Note on Alternatives</a></li></ul>
         </div>
       </div>
     
@@ -2058,7 +2133,7 @@
 
 <h3 id="eulerian-data-on-the-gpu">Eulerian Data on the GPU</h3>
 
-<p>Since we are doing an Eulerian simulation (which just means that it is a grid-based simulation), it makes sense to store our data in textures. For a fragment program, the position of the fragment would represent the position in the grid you are working on, and for a compute program, the <span class="jekyll-glossary">  invocation  <span class="jekyll-glossary-tooltip">    <span class="jekyll-glossary-tooltip-hidden">(</span>(A.K.A. thread or GPU work unit) The smallest unit of GPU execution within a kernel function. For GPGPU programming, invocations are organized into 3D grids and are dispatched in batches called “workgroups”.<br /><a class="jekyll-glossary-source-link" href="https://docs.modular.com/glossary/gpu/thread/" target="_blank"></a><span class="jekyll-glossary-tooltip-hidden">)</span>  </span></span> index would tell you what position in the grid you are working on.</p>
+<p>Since we are doing an Eulerian simulation (which just means that it is a grid-based simulation), it makes sense to store our data in textures. For a fragment program, the position of the fragment would represent the position in the grid you are working on, and for a compute program, the <span class="jekyll-glossary">  invocation  <span class="jekyll-glossary-tooltip"><span class="jekyll-glossary-tooltip-hidden">(</span>(A.K.A. thread or GPU work unit) The smallest unit of GPU execution within a kernel function. For GPGPU programming, invocations are organized into 3D grids and are dispatched in batches called “workgroups”.<br /><a class="jekyll-glossary-source-link" href="https://docs.modular.com/glossary/gpu/thread/" target="_blank"></a><span class="jekyll-glossary-tooltip-hidden">)</span></span></span> index would tell you what position in the grid you are working on.</p>
 
 <p>Alternatively, for a compute program you could also store the data in a 1D buffer and calculate the buffer index from the grid position. The benefit of doing this is the freedom to store more data. In a texture you only get up to 4 channels to store data to for each cell, however, a compute buffer can store contains structs of larger sizes making it easier to store data.</p>
 
@@ -2090,6 +2165,12 @@ block
 
 <p>Describing the classical advection scheme using this information because very simple. Suppose we want to advect the velocities of the fluid (that means we want to move the position of the velocities, by the velocity itself):</p>
 
+<blockquote class="block-warning">
+  <h5 id="warning">WARNING</h5>
+
+  <p>The following graphic might appear incorrectly on Safari / Webkit browsers.</p>
+</blockquote>
+
 <script src="assets/mermaid-js/mermaid-v11.20.js"></script>
 <div class="mermaid">
 flowchart TD
@@ -2112,7 +2193,7 @@ flowchart TD
 <p>This approach is unsuitable for our needs for a few reasons:</p>
 
 <ol>
-  <li>This scheme is highly unsuitable for GPU implementation because it means that multiple GPU <span class="jekyll-glossary">  invocations  <span class="jekyll-glossary-tooltip">    <span class="jekyll-glossary-tooltip-hidden">(</span>(A.K.A. thread or GPU work unit) The smallest unit of GPU execution within a kernel function. For GPGPU programming, invocations are organized into 3D grids and are dispatched in batches called “workgroups”.<br /><a class="jekyll-glossary-source-link" href="https://docs.modular.com/glossary/gpu/thread/" target="_blank"></a><span class="jekyll-glossary-tooltip-hidden">)</span>  </span></span> can write to the same pixel. We want each pixel to be updated by one GPU <span class="jekyll-glossary">  invocation  <span class="jekyll-glossary-tooltip">    <span class="jekyll-glossary-tooltip-hidden">(</span>(A.K.A. thread or GPU work unit) The smallest unit of GPU execution within a kernel function. For GPGPU programming, invocations are organized into 3D grids and are dispatched in batches called “workgroups”.<br /><a class="jekyll-glossary-source-link" href="https://docs.modular.com/glossary/gpu/thread/" target="_blank"></a><span class="jekyll-glossary-tooltip-hidden">)</span>  </span></span> at most.</li>
+  <li>This scheme is highly unsuitable for GPU implementation because it means that multiple GPU <span class="jekyll-glossary">  invocations  <span class="jekyll-glossary-tooltip"><span class="jekyll-glossary-tooltip-hidden">(</span>(A.K.A. thread or GPU work unit) The smallest unit of GPU execution within a kernel function. For GPGPU programming, invocations are organized into 3D grids and are dispatched in batches called “workgroups”.<br /><a class="jekyll-glossary-source-link" href="https://docs.modular.com/glossary/gpu/thread/" target="_blank"></a><span class="jekyll-glossary-tooltip-hidden">)</span></span></span> can write to the same pixel. We want each pixel to be updated by one GPU <span class="jekyll-glossary">  invocation  <span class="jekyll-glossary-tooltip"><span class="jekyll-glossary-tooltip-hidden">(</span>(A.K.A. thread or GPU work unit) The smallest unit of GPU execution within a kernel function. For GPGPU programming, invocations are organized into 3D grids and are dispatched in batches called “workgroups”.<br /><a class="jekyll-glossary-source-link" href="https://docs.modular.com/glossary/gpu/thread/" target="_blank"></a><span class="jekyll-glossary-tooltip-hidden">)</span></span></span> at most.</li>
   <li>The new lookup position $\vec{p}_{\text{new}}$ will very likely not lie exactly on a pixel center, so the location you are trying to write to is actually an interpolation of nearby pixels, which means you will have to update multiple pixels at once.</li>
 </ol>
 
@@ -2163,6 +2244,12 @@ flowchart TD
 
 <p>Consider running Stam’s advection scheme on the following case. Here is an example current velocity texture:</p>
 
+<blockquote class="block-warning">
+  <h5 id="warning-1">WARNING</h5>
+
+  <p>The following graphic might appear incorrectly on Safari / Webkit browsers.</p>
+</blockquote>
+
 <script src="assets/mermaid-js/mermaid-v11.20.js"></script>
 <div class="mermaid">
 block
@@ -2180,6 +2267,12 @@ block
 
 <p>However, for the center grid position, it inverts it’s velocity, looks up the values to the left (which are all zero), and copies that velocity, resulting in the following output:</p>
 
+<blockquote class="block-warning">
+  <h5 id="warning-2">WARNING</h5>
+
+  <p>The following graphic might appear incorrectly on Safari / Webkit browsers.</p>
+</blockquote>
+
 <script src="assets/mermaid-js/mermaid-v11.20.js"></script>
 <div class="mermaid">
 block
@@ -2192,6 +2285,12 @@ block
 </div>
 
 <p>This is obviously incorrect, as advection tells us that the velocity must move by the velocity itself. So the correct result should be something like this:</p>
+
+<blockquote class="block-warning">
+  <h5 id="warning-3">WARNING</h5>
+
+  <p>The following graphic might appear incorrectly on Safari / Webkit browsers.</p>
+</blockquote>
 
 <script src="assets/mermaid-js/mermaid-v11.20.js"></script>
 <div class="mermaid">
@@ -2220,6 +2319,12 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
 
 <p>If you look at the example above, it is not possible for the center grid cell to have a non-zero velocity value when all of it’s neighbors are zero. That means that there is fluid flowing out of that cell without any fluid entering that cell, which means matter is being mysteriously created there. A valid example might look something like this instead:</p>
 
+<blockquote class="block-warning">
+  <h5 id="warning-4">WARNING</h5>
+
+  <p>The following graphic might appear incorrectly on Safari / Webkit browsers.</p>
+</blockquote>
+
 <script src="assets/mermaid-js/mermaid-v11.20.js"></script>
 <div class="mermaid">
 block
@@ -2234,6 +2339,189 @@ block
 <p>Notice how the velocities flow into each other so that the velocity field has no divergence.</p>
 
 <p>When we get to the later parts of our simulator where we employ the Helmholtz-Hodge decomposition to obtain a divergence-free velocity field, Stam’s advection scheme works much better and proves to be a simple yet efficient advection model.</p>
+
+<h3 id="compute-shader-implementation">Compute Shader Implementation</h3>
+
+<p>We’re going to set up quite a few things here because they are going to be used in future compute stages as well. In order to minimize and avoid unnecessary CPU-GPU communication in between our compute stages, it is better for the CPU to upload all of the required data from the first compute stage itself, and have that data common between all the compute stages.</p>
+
+<p>Even if our first stage (advection) doesn’t require the pressure textures, we define it here anyways. Otherwise, the CPU has to update the storage buffers and texture buffers between every compute stage and reupload them to the GPU which wastes a lot of time as memory bandwidth is limited.</p>
+
+<h4 id="texture-buffers-setup">Texture Buffers Setup</h4>
+
+<p>As discussed earlier, our slab operation requires temporary storage for us to write our output values to. So, I have created two image textures for the velocity field on the compute device, however, at some point we will need to sample the textures themselves (for bilinear sampling of the input velocity, or for sampling the output texture to copy its data back to the input texture for the next simulation step).</p>
+
+<p>So for both textures we attach the image itself and a sampler, giving us the following texture buffers:</p>
+
+<div class="language-glsl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#version 450
+</span>
+<span class="k">layout</span><span class="p">(</span><span class="n">set</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">binding</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">rg32f</span><span class="p">)</span> <span class="k">uniform</span> <span class="kr">image2D</span> <span class="n">VELOCITY_INPUT</span><span class="p">;</span>
+<span class="k">layout</span><span class="p">(</span><span class="n">set</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">binding</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="k">uniform</span> <span class="kt">sampler2D</span> <span class="n">VELOCITY_INPUT_SAMPLER</span><span class="p">;</span>
+<span class="k">layout</span><span class="p">(</span><span class="n">set</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">binding</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">rg32f</span><span class="p">)</span> <span class="k">uniform</span> <span class="kr">image2D</span> <span class="n">VELOCITY_OUTPUT</span><span class="p">;</span>
+<span class="k">layout</span><span class="p">(</span><span class="n">set</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">binding</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span> <span class="k">uniform</span> <span class="kt">sampler2D</span> <span class="n">VELOCITY_OUTPUT_SAMPLER</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Notice that the image textures are of type <code class="language-plaintext highlighter-rouge">rg32f</code> which means they only have a red and green channel, each storing a 32-bit signed floating point number. We only need two channels because we are storing 2D velocities.</p>
+
+<p>We do the same for the pressure field which is a scalar field, so the image textures here are of type <code class="language-plaintext highlighter-rouge">r32f</code> because we only need one channel to store scalar values:</p>
+
+<div class="language-glsl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">layout</span><span class="p">(</span><span class="n">set</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">binding</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">r32f</span><span class="p">)</span> <span class="k">uniform</span> <span class="kr">image2D</span> <span class="n">PRESSURE_INPUT</span><span class="p">;</span>
+<span class="k">layout</span><span class="p">(</span><span class="n">set</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">binding</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span> <span class="k">uniform</span> <span class="kt">sampler2D</span> <span class="n">PRESSURE_INPUT_SAMPLER</span><span class="p">;</span>
+<span class="k">layout</span><span class="p">(</span><span class="n">set</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">binding</span> <span class="o">=</span> <span class="mi">6</span><span class="p">,</span> <span class="n">r32f</span><span class="p">)</span> <span class="k">uniform</span> <span class="kr">image2D</span> <span class="n">PRESSURE_OUTPUT</span><span class="p">;</span>
+<span class="k">layout</span><span class="p">(</span><span class="n">set</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">binding</span> <span class="o">=</span> <span class="mi">7</span><span class="p">)</span> <span class="k">uniform</span> <span class="kt">sampler2D</span> <span class="n">PRESSURE_OUTPUT_SAMPLER</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Finally, later we are going to need a way to visualize our fluid. So we create appropriate textures for us to update later:</p>
+
+<div class="language-glsl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">layout</span><span class="p">(</span><span class="n">set</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">binding</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span> <span class="n">rgba32f</span><span class="p">)</span> <span class="k">uniform</span> <span class="kr">image2D</span> <span class="n">UPDATE_TEXTURE</span><span class="p">;</span>
+<span class="k">layout</span><span class="p">(</span><span class="n">set</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">binding</span> <span class="o">=</span> <span class="mi">9</span><span class="p">,</span> <span class="n">rgba32f</span><span class="p">)</span> <span class="k">uniform</span> <span class="kr">image2D</span> <span class="n">DISPLAY_TEXTURE</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="storage-buffers-setup">Storage Buffers Setup</h4>
+
+<p>Here we want to define all the user controlled parameters and any extra data we want to send from the CPU such as the mouse position and whether the mouse button is clicked.</p>
+
+<div class="language-glsl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">layout</span><span class="p">(</span><span class="n">set</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">binding</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">std430</span><span class="p">)</span> <span class="n">restrict</span> <span class="n">buffer</span> <span class="n">Parameters</span>
+<span class="p">{</span>
+	<span class="kt">float</span> <span class="n">dt</span><span class="p">;</span>
+	<span class="kt">float</span> <span class="n">dx</span><span class="p">;</span>
+	<span class="kt">float</span> <span class="n">viscosity</span><span class="p">;</span>
+	<span class="kt">float</span> <span class="n">click_radius</span><span class="p">;</span>
+	<span class="kt">float</span> <span class="n">click_force</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">parameters</span><span class="p">;</span>
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Buffer Parameter</th>
+      <th style="text-align: center">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">dt</code></td>
+      <td style="text-align: center">Our time-step $\Delta t$</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">dx</code></td>
+      <td style="text-align: center">Spacing between the cells (which is set to 1)</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">viscosity</code></td>
+      <td style="text-align: center">Value of fluid viscosity $\nu$</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">click_radius</code></td>
+      <td style="text-align: center">Used later to define the size of influence our mouse click has</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">click_force</code></td>
+      <td style="text-align: center">Used later to define the strength of the external force applied where the mouse has been clicked</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Finally, since the mouse data needs to be updated every frame, we send it using push constants which are extremely fast. However, the amount of data you can upload with the push constant is limited.</p>
+
+<div class="language-glsl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">layout</span><span class="p">(</span><span class="n">push_constant</span><span class="p">,</span> <span class="n">std430</span><span class="p">)</span> <span class="k">uniform</span> <span class="n">MouseData</span> <span class="p">{</span>
+	<span class="kt">vec2</span> <span class="n">mouse_pos</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h4 id="advection-compute">Advection Compute</h4>
+
+<p>First we define a helper function to help us look up the interpolated value from the input velocity texture:</p>
+
+<div class="language-glsl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">vec4</span> <span class="nf">Tv</span><span class="p">(</span><span class="kt">vec2</span> <span class="n">_texel</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="c1">// Bilinear Texture Lookup for Velocity using sampler's filtering</span>
+	<span class="c1">// Make sure RDSamplerState mag_filter, min_filter, mip_filter are all set to linear!!!</span>
+	<span class="kt">vec2</span> <span class="n">resolution</span> <span class="o">=</span> <span class="kt">vec2</span><span class="p">(</span><span class="n">textureSize</span><span class="p">(</span><span class="n">VELOCITY_INPUT_SAMPLER</span><span class="p">,</span><span class="mi">0</span><span class="p">));</span>
+	<span class="kt">vec2</span> <span class="n">uv</span> <span class="o">=</span> <span class="n">_texel</span> <span class="o">/</span> <span class="p">(</span><span class="n">resolution</span> <span class="o">-</span> <span class="mi">1</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span>
+	<span class="k">return</span> <span class="n">texture</span><span class="p">(</span><span class="n">VELOCITY_INPUT_SAMPLER</span><span class="p">,</span> <span class="n">uv</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Now, simply apply Stam’s advection scheme:</p>
+
+<div class="language-glsl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">layout</span><span class="p">(</span><span class="n">local_size_x</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span> <span class="n">local_size_y</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span> <span class="n">local_size_z</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="k">in</span><span class="p">;</span>
+<span class="kt">void</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+	<span class="kt">ivec2</span> <span class="n">texel</span> <span class="o">=</span> <span class="kt">ivec2</span><span class="p">(</span><span class="n">gl_GlobalInvocationID</span><span class="p">.</span><span class="n">xy</span><span class="p">);</span>
+	<span class="kt">vec2</span> <span class="n">ftexel</span> <span class="o">=</span> <span class="kt">vec2</span><span class="p">(</span><span class="n">texel</span><span class="p">);</span> <span class="c1">// Convert from int to float</span>
+
+	<span class="c1">// Follow velocity field "back in time"</span>
+	<span class="kt">float</span> <span class="n">dt</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">.</span><span class="n">dt</span><span class="p">;</span>
+	<span class="kt">vec2</span> <span class="n">lookup_pos</span> <span class="o">=</span> <span class="n">ftexel</span> <span class="o">-</span> <span class="n">Tv</span><span class="p">(</span><span class="n">ftexel</span><span class="p">).</span><span class="n">xy</span> <span class="o">*</span> <span class="n">dt</span><span class="p">;</span>
+
+	<span class="c1">// Copy value from lookup location</span>
+	<span class="kt">vec2</span> <span class="n">new_vel</span> <span class="o">=</span> <span class="n">Tv</span><span class="p">(</span><span class="n">lookup_pos</span><span class="p">).</span><span class="n">xy</span><span class="p">;</span>
+
+	<span class="c1">// Write out data</span>
+	<span class="kt">vec4</span> <span class="n">color</span> <span class="o">=</span> <span class="kt">vec4</span><span class="p">(</span><span class="n">new_vel</span><span class="p">,</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span>
+	<span class="n">imageStore</span><span class="p">(</span><span class="n">VELOCITY_OUTPUT</span><span class="p">,</span> <span class="n">texel</span><span class="p">,</span> <span class="n">color</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Finally, and arguably the most important step. Is to copy the data from <code class="language-plaintext highlighter-rouge">VELOCITY_OUTPUT</code> back to <code class="language-plaintext highlighter-rouge">VELOCITY_INPUT</code> after this pass has run to complete the slab operation. In order to do this we need will develop a second “texture copy” pass that we will re-use every time we need to carry out a slabop:</p>
+
+<div class="language-glsl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#version 450
+</span>
+<span class="k">layout</span><span class="p">(</span><span class="n">set</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">binding</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">rg32f</span><span class="p">)</span> <span class="k">uniform</span> <span class="kr">image2D</span> <span class="n">VELOCITY_INPUT</span><span class="p">;</span>
+<span class="k">layout</span><span class="p">(</span><span class="n">set</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">binding</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="k">uniform</span> <span class="kt">sampler2D</span> <span class="n">VELOCITY_INPUT_SAMPLER</span><span class="p">;</span>
+<span class="k">layout</span><span class="p">(</span><span class="n">set</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">binding</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">rg32f</span><span class="p">)</span> <span class="k">uniform</span> <span class="kr">image2D</span> <span class="n">VELOCITY_OUTPUT</span><span class="p">;</span>
+<span class="k">layout</span><span class="p">(</span><span class="n">set</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">binding</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span> <span class="k">uniform</span> <span class="kt">sampler2D</span> <span class="n">VELOCITY_OUTPUT_SAMPLER</span><span class="p">;</span>
+
+<span class="k">layout</span><span class="p">(</span><span class="n">set</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">binding</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">r32f</span><span class="p">)</span> <span class="k">uniform</span> <span class="kr">image2D</span> <span class="n">PRESSURE_INPUT</span><span class="p">;</span>
+<span class="k">layout</span><span class="p">(</span><span class="n">set</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">binding</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span> <span class="k">uniform</span> <span class="kt">sampler2D</span> <span class="n">PRESSURE_INPUT_SAMPLER</span><span class="p">;</span>
+<span class="k">layout</span><span class="p">(</span><span class="n">set</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">binding</span> <span class="o">=</span> <span class="mi">6</span><span class="p">,</span> <span class="n">r32f</span><span class="p">)</span> <span class="k">uniform</span> <span class="kr">image2D</span> <span class="n">PRESSURE_OUTPUT</span><span class="p">;</span>
+<span class="k">layout</span><span class="p">(</span><span class="n">set</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">binding</span> <span class="o">=</span> <span class="mi">7</span><span class="p">)</span> <span class="k">uniform</span> <span class="kt">sampler2D</span> <span class="n">PRESSURE_OUTPUT_SAMPLER</span><span class="p">;</span>
+
+<span class="k">layout</span><span class="p">(</span><span class="n">set</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">binding</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span> <span class="n">rgba32f</span><span class="p">)</span> <span class="k">uniform</span> <span class="kr">image2D</span> <span class="n">UPDATE_TEXTURE</span><span class="p">;</span>
+<span class="k">layout</span><span class="p">(</span><span class="n">set</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">binding</span> <span class="o">=</span> <span class="mi">9</span><span class="p">,</span> <span class="n">rgba32f</span><span class="p">)</span> <span class="k">uniform</span> <span class="kr">image2D</span> <span class="n">DISPLAY_TEXTURE</span><span class="p">;</span>
+
+<span class="k">layout</span><span class="p">(</span><span class="n">set</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">binding</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">std430</span><span class="p">)</span> <span class="n">restrict</span> <span class="n">buffer</span> <span class="n">Parameters</span>
+<span class="p">{</span>
+	<span class="kt">float</span> <span class="n">dt</span><span class="p">;</span>
+	<span class="kt">float</span> <span class="n">dx</span><span class="p">;</span>
+	<span class="kt">float</span> <span class="n">viscosity</span><span class="p">;</span>
+	<span class="kt">float</span> <span class="n">click_radius</span><span class="p">;</span>
+	<span class="kt">float</span> <span class="n">click_force</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">parameters</span><span class="p">;</span>
+
+<span class="k">layout</span><span class="p">(</span><span class="n">push_constant</span><span class="p">,</span> <span class="n">std430</span><span class="p">)</span> <span class="k">uniform</span> <span class="n">MouseData</span> <span class="p">{</span>
+	<span class="kt">vec2</span> <span class="n">mouse_pos</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">layout</span><span class="p">(</span><span class="n">local_size_x</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span> <span class="n">local_size_y</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span> <span class="n">local_size_z</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="k">in</span><span class="p">;</span>
+<span class="kt">void</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+	<span class="c1">// Copy data from VELOCITY_OUTPUT into VELOCITY_INPUT</span>
+	<span class="kt">ivec2</span> <span class="n">texel</span> <span class="o">=</span> <span class="kt">ivec2</span><span class="p">(</span><span class="n">gl_GlobalInvocationID</span><span class="p">.</span><span class="n">xy</span><span class="p">);</span>
+	<span class="n">imageStore</span><span class="p">(</span><span class="n">VELOCITY_INPUT</span><span class="p">,</span> <span class="n">texel</span><span class="p">,</span> <span class="n">imageLoad</span><span class="p">(</span><span class="n">VELOCITY_OUTPUT</span><span class="p">,</span> <span class="n">texel</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="live-demo">Live Demo</h4>
+
+<p>I have placed initial velocities in the center that radiate outwards from the center. You can see how this advection scheme is unconditionally stable, however, because the velocities outside this circle are all zero, nothing moves.</p>
+
+<p>Don’t worry about this. As we discussed earlier, once we apply the other steps of our fluid simulator, this advection scheme performs much better.</p>
+
+<p>Here the absolute values of the velocity vector field are visualized. The red channel holds the absolute values of the horizontal velocity and the green channel holds the absolute values of the vertical velocity.</p>
+
+<div>
+<canvas class="glsl-canvas glsl-small" data-fragment-url="/shader-compendium/assets/shaders/advection_nekoto.frag" />
+</div>
+
+<!-- <div>
+<canvas
+class="glsl-canvas glsl-small"
+data-fragment-url="/shader-compendium/assets/shaders/diffusion_laplacian_nekoto.frag"
+/>
+</div> -->
 
 <h2 id="a-note-on-alternatives">A Note on Alternatives</h2>
 
@@ -2251,11 +2539,11 @@ block
     
       
       <a
-        href="/shader-compendium/references.html"
+        href="/shader-compendium/fluid-diffusion.html"
         class="chapter-next "
-        aria-label="Next page: References"
+        aria-label="Next page: Viscous Diffusion (and Poisson Equations)"
         data-level="1.1"
-        data-path="/shader-compendium/references.html">
+        data-path="/shader-compendium/fluid-diffusion.html">
         <div class="pager-arrow">
           <i class="fa fa-arrow-right"></i>
         </div>
@@ -2264,11 +2552,14 @@ block
             Next:
             
               
+                Gpu fluids
+                 &#8250;
               
+              Chapter 10.
             
           </div>
           <div class="chapter-label">
-            References
+            Viscous Diffusion (and Poisson Equations)
           </div>
         </div>
       </a>
@@ -2331,7 +2622,7 @@ block
 					<div class="copyright">
 						  
 						<a href="/shader-compendium/book.html">
-							 &copy;   2024- 2025 NekotoArts 
+							 &copy;   2024- 2026 Gregory Dsouza 
 						</a>
 						
 					</div>
@@ -2433,18 +2724,18 @@ block
       "readme": "README.md",
     },
     "variables": {},
-    "title": "Shader Compendium",
+    "title": "Computational Graphics and Scientific Simulation",
     "language": "en",
     "gitbook": "*"
   },
   "file": {
     "path": "_chapters/060-GPU-fluids/040-jos-stam-advection-scheme.md",
-    "mtime": "2025-10-16 13:19:51 +0400",
+    "mtime": "2026-07-05 23:50:20 +0400",
     "type": "markdown"
   },
   "gitbook": {
     "version": "",
-    "time": "2025-10-16 13:19:51 +0400"
+    "time": "2026-07-05 23:50:20 +0400"
   },
   "basePath": "/shader-compendium",
   "book": {

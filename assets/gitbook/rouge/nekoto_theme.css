@@ -1,5 +1,7 @@
 /* To change code BG color go to extra.css */
 
+/* This is just the Horizon Theme btw (or whatever I end up setting up as my own VSCode theme) */
+
 .highlight .hll { background-color: #ffffcc }
 .highlight .c { color: #999988; font-style: italic } /* Comment */
 .highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
@@ -23,8 +25,8 @@
 .highlight .kd { color: #000000; font-weight: bold } /* Keyword.Declaration */
 .highlight .kn { color: #000000; font-weight: bold } /* Keyword.Namespace */
 .highlight .kp { color: #000000; font-weight: bold } /* Keyword.Pseudo */
-.highlight .kr { color: #000000; font-weight: bold } /* Keyword.Reserved */
-.highlight .kt { color: #445588; font-weight: bold } /* Keyword.Type */
+.highlight .kr { color: #8931B9; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #DA103F; font-weight: bold } /* Keyword.Type */
 .highlight .m { color: #1d8992 } /* Literal.Number */
 .highlight .s { color: #d01040 } /* Literal.String */
 .highlight .na { color: #008080 } /* Name.Attribute */
@@ -33,19 +35,19 @@
 .highlight .no { color: #008080 } /* Name.Constant */
 .highlight .nd { color: #3c5d5d; font-weight: bold } /* Name.Decorator */
 .highlight .ni { color: #800080 } /* Name.Entity */
-.highlight .ne { color: #990000; font-weight: bold } /* Name.Exception */
-.highlight .nf { color: #990000; font-weight: bold } /* Name.Function */
-.highlight .nl { color: #990000; font-weight: bold } /* Name.Label */
+.highlight .ne { color: #DA103F; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #1D8991; font-weight: bold } /* Name.Function */
+.highlight .nl { color: #DA103F; font-weight: bold } /* Name.Label */
 .highlight .nn { color: #555555 } /* Name.Namespace */
 .highlight .nt { color: #000080 } /* Name.Tag */
 .highlight .nv { color: #008080 } /* Name.Variable */
 .highlight .ow { color: #000000; font-weight: bold } /* Operator.Word */
 .highlight .p { color: #000000; } /* Parenthesis */
 .highlight .w { color: #bbbbbb } /* Text.Whitespace */
-.highlight .mf { color: #009999 } /* Literal.Number.Float */
-.highlight .mh { color: #009999 } /* Literal.Number.Hex */
-.highlight .mi { color: #009999 } /* Literal.Number.Integer */
-.highlight .mo { color: #009999 } /* Literal.Number.Oct */
+.highlight .mf { color: #F6661E } /* Literal.Number.Float */
+.highlight .mh { color: #F6661E } /* Literal.Number.Hex */
+.highlight .mi { color: #F6661E } /* Literal.Number.Integer */
+.highlight .mo { color: #F6661E } /* Literal.Number.Oct */
 .highlight .sb { color: #d01040 } /* Literal.String.Backtick */
 .highlight .sc { color: #d01040 } /* Literal.String.Char */
 .highlight .sd { color: #d01040 } /* Literal.String.Doc */
