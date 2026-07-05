@@ -36,4 +36,4 @@ Chapter 6 - Fluid Simulation Methods on the GPU:
 4. Jos Stam Advection Scheme
 5. Poisson Equations
 6. Jacobi Iterative Method
-7. MacCormack Advection Scheme
+7. MacCormack Advection Scheme (without implementation)
